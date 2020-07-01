@@ -1,12 +1,12 @@
-# homebridge-blinds
+# homebridge-blinds-up-down
 
 [![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
-[![isc license](https://badgen.net/badge/license/ISC/red)](https://github.com/dxdc/homebridge-blinds/blob/master/LICENSE)
-[![npm](https://badgen.net/npm/v/homebridge-blinds)](https://www.npmjs.com/package/homebridge-blinds)
-[![npm](https://badgen.net/npm/dt/homebridge-blinds)](https://www.npmjs.com/package/homebridge-blinds)
+[![isc license](https://badgen.net/badge/license/ISC/red)](https://github.com/dxdc/homebridge-blinds-up-down/blob/master/LICENSE)
+[![npm](https://badgen.net/npm/v/homebridge-blinds-up-down)](https://www.npmjs.com/package/homebridge-blinds-up-down)
+[![npm](https://badgen.net/npm/dt/homebridge-blinds-up-down)](https://www.npmjs.com/package/homebridge-blinds-up-down)
 [![Donate](https://badgen.net/badge/Donate/PayPal/91BE09)](https://paypal.me/ddcaspi)
 
-`homebridge-blinds` is a plugin for Homebridge.
+`homebridge-blinds-up-down` is a plugin for Homebridge, which extends the plugin [`homebridge-blinds`](https://www.npmjs.com/package/homebridge-blinds) by adding more functionality.
 
 Control your `http`-based blinds via Homebridge!
 
@@ -19,9 +19,9 @@ Install homebridge:
 ```sh
 sudo npm install -g homebridge
 ```
-Install homebridge-blinds:
+Install homebridge-blinds-up-down:
 ```sh
-sudo npm install -g homebridge-blinds
+sudo npm install -g homebridge-blinds-up-down
 ```
 
 ## Configuration
@@ -87,7 +87,6 @@ Add the accessory in `config.json` in your home directory inside `.homebridge`.
 ```
 
 ### URL Configuration
----
 
 #### Basic
 
@@ -124,7 +123,6 @@ If an object is used for the configuration, `http_method`, `max_http_attempts`, 
 If `time` is set to true, a full request timing profile (wait, dns, tcp, firstByte, download, total) will be logged (see [timingPhases](https://github.com/request/request/blob/master/README.md)).
 
 ### Blinds position
----
 
 The plugin emulates the blinds position (it saves it in a variable) using an understanding of how long the blinds take to move and the relative position, but it can be used with `position_url` for realtime feedback.
 
@@ -175,7 +173,6 @@ If `position_jsonata` = `example.value`, this would produce the value of `4`. Th
 Ensure that the motion time is configured properly, even when `position_url` is set, as it is used to obtain an estimate of blind position to avoid multiple web requests to the `position_url`. (After the estimated position is reached, the position will be confirmed).
 
 ### Motion Time and Calibration
----
 
 There are two time configurations parameters, `motion_down_time` and `motion_up_time`.        
 
@@ -218,7 +215,7 @@ Therefore, to calibrate your blinds, you will need to set `response_lag`. This c
 - 11.25 `Stop` command received by blinds, blinds stopped moving
 
 ### Manual Stop and Toggle buttons
----
+
 
 These can be set to `true` or `false`, but the default is `false`.
 
@@ -227,7 +224,6 @@ These can be set to `true` or `false`, but the default is `false`.
 - `show_toggle_button` will expose a HomeKit button that allows the blinds position to be toggled based on the last command sent. For example, if the last command sent to the blinds was `up`, it will send the command `down`. Note that on start up, `toggle` will have no effect unless either 1) the initial blinds position on start up is either 0 or 100, or, 2) at least one command (`up` or `down`) is sent.
 
 ### Special Cases
----
 
 These can be set to `true` or `false`, but the default is `false`.
 
