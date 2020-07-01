@@ -1,6 +1,6 @@
 {
   "name": "homebridge-blinds-up-down",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "A homebridge plugin to control blinds that goes up and down",
   "main": "index.js",
   "scripts": {
@@ -18,10 +18,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dxdc/homebridge-blinds.git"
+    "url": "git+https://github.com/slavikme/homebridge-blinds-up-down.git"
   },
   "bugs": {
-    "url": "https://github.com/dxdc/homebridge-blinds/issues"
+    "url": "https://github.com/slavikme/homebridge-blinds-up-down/issues"
   },
   "author": "Daniel Caspi <dan@element26.net>",
   "contributors": [
