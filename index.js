@@ -62,7 +62,7 @@ function BlindsHTTPAccessory(log, config) {
     this.showToggleButton = config.show_toggle_button === true;
 
     // motion time vars
-    const motionTimeConfig = parseInt(config.motion_time, 10) || 10000;
+    const motionTimeConfig = parseInt(config.motion_time, 10) || 10000; // Backward compatibility
     this.motionUpTime = parseInt(config.motion_up_time, 10) || motionTimeConfig;
     this.motionDownTime = parseInt(config.motion_down_time, 10) || motionTimeConfig;
     this.responseLag = parseInt(config.response_lag, 10) || 0;

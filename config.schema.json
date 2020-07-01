@@ -66,12 +66,6 @@
 				},
 				"description": "JSON object with custom request HTTP parameters/headers for up/down/stop URL's."
 			},
-			"motion_time": {
-				"title": "Motion Time",
-				"type": "number",
-				"default": 10000,
-				"description": "Time (in ms) for blinds to move completely up or down."
-			},
 			"motion_up_time": {
 				"title": "Motion Upward Time",
 				"type": "number",

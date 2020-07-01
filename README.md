@@ -41,7 +41,8 @@ Add the accessory in `config.json` in your home directory inside `.homebridge`.
         "method": "GET"
       },
       "success_codes": [ 200 ],
-      "motion_time": 10000,
+      "motion_up_time": 11000,
+      "motion_down_time": 10000,
       "response_lag": 0
     }
 ```
@@ -176,24 +177,23 @@ Ensure that the motion time is configured properly, even when `position_url` is 
 ### Motion Time and Calibration
 ---
 
-`motion_time` is the time, in milliseconds, for your blinds to move from up to down. This should only include the time the motor is running. Filming this with your phone to determine the time may be easier than trying to do it with a timer. **NOTE**: If you are performing multiple blind requests simultaneously and are getting network timeouts due to your configuration, try using non-identical `motion_time` (e.g., 9800, 10000, 10200 vs. 10000 for each) it may help.
+There are two time configurations parameters, `motion_down_time` and `motion_up_time`.        
 
-There are additional two configurations parameters, `motion_down_time` and `motion_up_time`.        
+`motion_down_time` is the time, in milliseconds, for your blinds to move from up to down.
 
-`motion_down_time` is the time, in milliseconds, for your blinds to move from up to down. Everything else is exactly as described in `motion_time` above.
-
-`motion_up_time` is the time, in milliseconds, for your blinds to move from down to up. Everything else is exactly as described in `motion_time` above.
+`motion_up_time` is the time, in milliseconds, for your blinds to move from down to up.
 
 The reason for this, is that there are some blinds that their opening time is different from closing time, due to simple physics - The weight of the shutter affects on the speed of the motor.  
 Ideally, a better approach would be using some kind of gradual equation for calculating the exact time, according to the position, because the weight gradually added or subtracted during the move. But, hopefully this will be a nice to have feature in the future.
 
-**Note!**  
-`motion_down_time` and `motion_up_time` are always have higher priority over `motion_time`. This means, that if all three explicitly provided in the configuration file, the value set in `motion_down_time` and `motion_up_time` will be used instead and the value in `motion_time` will be ignored. You can also provide only `motion_down_time` and `motion_up_time` value without providing `motion_time`. If only `motion_time` is provided, its value will be used for `motion_down_time` and `motion_up_time`.
+**NOTES**  
+* These times above should only include the time the motor is running. Filming this with your phone to determine the time may be easier than trying to do it with a timer.
+* If you are performing multiple blind requests simultaneously and are getting network timeouts due to your configuration, try using non-identical time duration (e.g., 9800, 10000, 10200 vs. 10000 for each) it may help.
 
 **Steps:**
 1. HTTP UP/DOWN request sent; wait for successful reply (i.e., `success_codes`) = `HTTP request delay (measured)`
 2. Wait for device to send the signal to blinds, and movement begins = `response_lag`
-3. Total motion time = `current_position` - `target_position`) / 100 * `motion_time`
+3. Total motion time = `current_position` - `target_position`) / 100 * (`motion_up_time` or `motion_down_time`)
 4. Send stop request (if needed) = `Total motion time` - `HTTP request delay` - `response_lag`
 5. Wait for blinds to reach the target position = `Total motion time`
 
@@ -207,7 +207,7 @@ Ideally, a better approach would be using some kind of gradual equation for calc
 
 Therefore, to calibrate your blinds, you will need to set `response_lag`. This can be a second or more in some cases. The simplest way to do this is to determine the time from initiating an open/close event via HomeKit to the time you can see/hear movement, and subtract the `HTTP request delay` (from the logs). This is only relevant when `trigger_stop_at_boundaries` is required, or, a value of 1-99 is used for the blinds (not just fully open or closed).
 
-##### Example scenario (`motion_time` = 10000, `response_lag` = 750):
+##### Example scenario (`motion_up_time` = 10000, `response_lag` = 750):
 
 - 0.00 `Open` command sent
 - 0.25 `HTTP request` successful (`Move request sent (250 ms)`)
@@ -281,7 +281,8 @@ These values can be obtained from the Bond app, under `Device settings` for any 
         "method": "PUT"
       },
       "success_codes": [ 204 ],
-      "motion_time": 11000,
+      "motion_up_time": 11000,
+      "motion_down_time": 10000,
       "response_lag": 1000,
       "trigger_stop_at_boundaries": false
     }
@@ -331,7 +332,8 @@ Sample `config.json`, noting that you need to replace `1.2.3.4` with your Tasmot
       "use_same_url_for_stop": false,
       "show_stop_button": true,
       "show_toggle_button": false,
-      "motion_time": 20000,
+      "motion_up_time": 22000,
+      "motion_down_time": 20000,
       "response_lag": 0,
       "trigger_stop_at_boundaries": false,
       "verbose": false
